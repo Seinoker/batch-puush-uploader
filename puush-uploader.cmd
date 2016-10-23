@@ -9,7 +9,7 @@ set account_mail=foo@bar.com
 set password=foobar
 set api_key=FA10A1234D513C16250DC60A8E5D2FBE
 ::put your API key here if you enabled API key login
-set enable_md5=1
+set enable_md5=0
 ::set value to 1 to enable upload (not really needed)
 set folder_location=.\uploads\
 set puush_url=http://puush.me/api
