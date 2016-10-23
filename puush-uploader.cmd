@@ -2,23 +2,11 @@
 title puush uploader
 echo Started puush uploader 
 :::It uploads the file in the configured folder and delete it locally.
-::config
-set use_api_key_to_login=1
-::set value to 1 for api key login
-set account_mail=foo@bar.com
-set password=foobar
-set api_key=FA10A1234D513C16250DC60A8E5D2FBE
-::put your API key here if you enabled API key login
-set enable_md5=0
-::set value to 1 to enable upload (not really needed)
-set folder_location=.\uploads\
-set puush_url=http://puush.me/api
-set curl_binary=curl.exe
-set verbose=1
-::set value to 1 to enable verbose mode
-set copy_to_clipboard=1
-::1 to enable it
-::::::::::End of config::::::::::
+if NOT EXIST %~dp0\config.ini call :createconf > %~dp0\config.ini
+for /f "tokens=1,* eol=; delims==" %%i in (%~dp0\config.ini) do (
+    set %%i=%%j
+)
+for %%i in (%curl_binary%) do set curl_binary=%%~dpnxi
 if NOT EXIST "%curl_binary%" echo curl binary is not exist, Quitting... & goto :EOF
 if NOT EXIST "%folder_location%\*" mkdir %folder_location%
 ::check password or api key correct
@@ -66,11 +54,29 @@ for /f "tokens=1-4 delims=," %%a in ("%upload_result%") do (
     if "%copy_to_clipboard%"="1" echo. | set/p"=%%b" | clip & echo URL copied to clipboard.
     ::Yes, BELL character(ASCII 07)
 )
-goto :eof
+goto :EOF
 :md5hash
 :md5hash_redo
 for /f usebackq %%a in (`gethash.bat "%~1" md5`) do (
     if NOT "%errorlevel%"=="0" goto :md5hash_redo
     set %~2=%%a
 )
-goto :eof
+goto :EOF
+:createconf
+echo use_api_key_to_login=1
+echo ;set value to 1 for api key login
+echo account_mail=<foo@example.com>
+echo password=<password>
+echo ;put your login credential into the config
+echo api_key=
+echo ;put your API key here if you enabled API key login
+echo enable_md5=0
+echo ;set value to 1 to enable upload (not really needed)
+echo folder_location=.\uploads\
+echo puush_url=http://puush.me/api
+echo curl_binary=curl.exe
+echo verbose=1
+echo ;set value to 1 to enable verbose mode
+echo copy_to_clipboard=1
+echo ;1 to enable it
+goto :EOF
