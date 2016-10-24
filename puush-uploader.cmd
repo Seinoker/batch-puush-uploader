@@ -1,7 +1,6 @@
 @echo off
-title puush uploader
-echo Started puush uploader 
-:::It uploads the file in the configured folder and delete it locally.
+echo Started puush uploader.
+::puush uploader
 if NOT EXIST %~dp0\config.ini call :createconf > %~dp0\config.ini
 for /f "tokens=1,* eol=; delims==" %%i in (%~dp0\config.ini) do (
     set %%i=%%j
@@ -65,18 +64,18 @@ goto :EOF
 :createconf
 echo use_api_key_to_login=1
 echo ;set value to 1 for api key login
-echo account_mail=<foo@example.com>
-echo password=<password>
+echo account_mail=foo@example.com
+echo password=unencryptedpassword
 echo ;put your login credential into the config
-echo api_key=
+echo api_key=API Key
 echo ;put your API key here if you enabled API key login
 echo enable_md5=0
 echo ;set value to 1 to enable upload (not really needed)
 echo folder_location=.\uploads\
 echo puush_url=http://puush.me/api
 echo curl_binary=curl.exe
-echo verbose=1
+echo verbose=0
 echo ;set value to 1 to enable verbose mode
 echo copy_to_clipboard=1
-echo ;1 to enable it
+echo ;set to 1 to enable it
 goto :EOF
