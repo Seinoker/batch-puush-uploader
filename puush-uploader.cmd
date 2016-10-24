@@ -67,7 +67,7 @@ echo ;set value to 1 for api key login
 echo account_mail=foo@example.com
 echo password=unencryptedpassword
 echo ;put your login credential into the config
-echo api_key=API Key
+echo api_key=
 echo ;put your API key here if you enabled API key login
 echo enable_md5=0
 echo ;set value to 1 to enable upload (not really needed)
