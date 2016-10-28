@@ -50,8 +50,8 @@ for /f "tokens=1-4 delims=," %%a in ("%upload_result%") do (
     if NOT "%%a"=="0" echo Error on uploading %~1 , error code %error_code% & set "sucess=0" & goto :EOF
     set "sucess=1"
     echo %%b
-    if "%copy_to_clipboard%"="1" echo. | set/p"=%%b" | clip & echo URL copied to clipboard.
-    ::Yes, BELL character(ASCII 07)
+    if "%copy_to_clipboard%"=="1" echo. | set/p"=%%b" | clip & echo URL copied to clipboard.
+    ::using BELL character(ASCII 07) for sound
 )
 goto :EOF
 :md5hash
