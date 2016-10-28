@@ -1,4 +1,4 @@
-@echo off
+@echo on
 echo Started puush uploader.
 ::puush uploader
 if NOT EXIST %~dp0\config.ini call :createconf > %~dp0\config.ini
@@ -26,6 +26,7 @@ for /f "usebackq tokens=1-4 delims=," %%a in (`%curl_binary% -LSs -F "k=%api_key
 if EXIST "%~1" call :upload "%~fnx1" & goto :EOF
 :start
 for %%i in (%folder_location%\*) do (
+    ping -n 2 127.0.0.1 > nul
     move /y %%i puush%%~xi
     call :upload puush%%~xi
     if "%sucess%"=="1" del puush%%~xi
@@ -51,7 +52,7 @@ for /f "tokens=1-4 delims=," %%a in ("%upload_result%") do (
     set "sucess=1"
     echo %%b
     if "%copy_to_clipboard%"=="1" echo. | set/p"=%%b" | clip & echo URL copied to clipboard.
-    ::using BELL character(ASCII 07) for sound
+    ::using BELL character ASCII 07 for sound
 )
 goto :EOF
 :md5hash
