@@ -1,4 +1,4 @@
-@echo on
+@echo off
 echo Started puush uploader.
 ::puush uploader
 if NOT EXIST %~dp0\config.ini call :createconf > %~dp0\config.ini
@@ -52,7 +52,9 @@ for /f "tokens=1-4 delims=," %%a in ("%upload_result%") do (
     set "sucess=1"
     echo %%b
     if "%copy_to_clipboard%"=="1" echo. | set/p"=%%b" | clip & echo URL copied to clipboard.
-    ::using BELL character ASCII 07 for sound
+    :: using BELL character ASCII 07 for sound
+    :: the two parenthesis under here is to prevent cmd parsing error.
+    rem ()
 )
 goto :EOF
 :md5hash
