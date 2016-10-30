@@ -53,7 +53,7 @@ for /f "tokens=1-4 delims=," %%a in ("%upload_result%") do (
     echo %%b
     if "%copy_to_clipboard%"=="1" echo. | set/p"=%%b" | clip & echo URL copied to clipboard.
     :: using BELL character ASCII 07 for sound
-    :: the two parenthesis under here is to prevent cmd parsing error.
+    :: the two parenthesis under there is to prevent cmd parsing error.
     rem ()
 )
 goto :EOF
